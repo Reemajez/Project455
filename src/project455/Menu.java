@@ -1,8 +1,10 @@
 package project455;
+
 import java.util.ArrayList;
 import java.util.List;
 
 class MenuItem {
+
     private String name;
     private String description;
     private double price;
@@ -24,13 +26,14 @@ class MenuItem {
     public double getPrice() {
         return price;
     }
-    
-     public String toString() {
+
+    public String toString() {
         return getName() + " $" + getPrice() + " - " + getDescription();
     }
 }
 
 class Menu {
+
     private List<MenuItem> appetizers;
     private List<MenuItem> mainCourses;
     private List<MenuItem> desserts;
@@ -49,19 +52,45 @@ class Menu {
         desserts.add(new MenuItem("Cheesecake", "Classic New York style cheesecake with strawberry topping", 6.00));
     }
 
+    public List<MenuItem> getAppetizers() {
+        return appetizers;
+    }
+
+    public List<MenuItem> getMainCourses() {
+        return mainCourses;
+    }
+
+    public List<MenuItem> getDesserts() {
+        return desserts;
+    }
+
+    public void addAppetizer(String name, String desc, double price) {
+        appetizers.add(new MenuItem(name, desc, price));
+    }
+
+    public void addMainCourse(String name, String desc, double price) {
+        mainCourses.add(new MenuItem(name, desc, price));
+    }
+
+    public void addDessert(String name, String desc, double price) {
+        desserts.add(new MenuItem(name, desc, price));
+    }
+    
+    
     public void DisplayMenu() {
         System.out.println("---------- Menu ----------");
         displayMenuByCategory("Appetizers", appetizers);
         displayMenuByCategory("Main Courses", mainCourses);
         displayMenuByCategory("Desserts", desserts);
-        }
-    
+    }
+
     private void displayMenuByCategory(String category, List<MenuItem> items) {
         System.out.println(category + ":");
         for (MenuItem item : items) {
             System.out.println("- " + item.getName() + " $" + item.getPrice() + " - " + item.getDescription());
         }
     }
+
     public MenuItem findMenuItemsByName(String itemName) {
         for (MenuItem item : appetizers) {
             if (item.getName().equalsIgnoreCase(itemName)) {
