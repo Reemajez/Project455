@@ -22,6 +22,7 @@ public class order {
             displayMenuItem(item);
         }
     }
+   
     
     public List<MenuItem> getOrderedItems() {
         return itemsOrdered;
