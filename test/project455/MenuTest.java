@@ -5,6 +5,10 @@ import java.util.Scanner;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 public class MenuTest {
 
@@ -19,10 +23,10 @@ public class MenuTest {
     }
 
     @Test
-    public void testFindMenuItemsByName_Exists() {
+    public void test01_FindMenuItemsByName_Exists() {
         MenuItem result = menu.findMenuItemsByName("Burger");
 
-        System.out.println("TEST: testFindMenuItemsByName_Exists");
+        System.out.println("TEST: test01_FindMenuItemsByName_Exists");
         System.out.println("Expected: Burger | Found: " + (result != null ? result.getName() : "null"));
 
         assertNotNull(result);
@@ -32,10 +36,10 @@ public class MenuTest {
     }
 
     @Test
-    public void testFindMenuItemsByName_NotFound() {
+    public void test02_FindMenuItemsByName_NotFound() {
         MenuItem result = menu.findMenuItemsByName("Pizza");
 
-        System.out.println("TEST: testFindMenuItemsByName_NotFound");
+        System.out.println("TEST: test02_FindMenuItemsByName_NotFound");
         System.out.println("Expected: null | Found: " + result);
 
         assertNull(result);
@@ -44,10 +48,10 @@ public class MenuTest {
     }
 
     @Test
-    public void testFindMenuItemsByName_CaseInsensitive() {
+    public void test03_FindMenuItemsByName_CaseInsensitive() {
         MenuItem result = menu.findMenuItemsByName("cAkE");
 
-        System.out.println("TEST: testFindMenuItemsByName_CaseInsensitive");
+        System.out.println("TEST: test03_FindMenuItemsByName_CaseInsensitive");
         System.out.println("Expected: Cake | Found: " + (result != null ? result.getName() : "null"));
 
         assertNotNull(result);
@@ -59,8 +63,8 @@ public class MenuTest {
    
     
     @Test
-    public void testFindMenuItemsByName_EmptyString_ShouldFail() {
-        System.out.println("TEST: testFindMenuItemsByName_EmptyString_ShouldFail");
+    public void test04_FindMenuItemsByName_EmptyString_ShouldFail() {
+        System.out.println("TEST: test04_FindMenuItemsByName_EmptyString_ShouldFail");
 
         try {
             MenuItem result = menu.findMenuItemsByName("");
@@ -74,9 +78,10 @@ public class MenuTest {
     // =====================================================
     // ============  Test Cases that MUST FAIL (Bugs)  =====
     // =====================================================
+    
     @Test
-    public void testFindMenuItemsByName_Whitespace_Bug() {
-        System.out.println("TEST: testFindMenuItemsByName_Whitespace_Bug");
+    public void test05_FindMenuItemsByName_Whitespace_Bug() {
+        System.out.println("TEST: test05_FindMenuItemsByName_Whitespace_Bug");
 
         MenuItem result = menu.findMenuItemsByName("Burger ");
 
@@ -86,8 +91,8 @@ public class MenuTest {
     }
 
     @Test
-    public void testFindMenuItemsByName_NullInput_Bug() {
-        System.out.println("TEST: testFindMenuItemsByName_NullInput_Bug");
+    public void test06_FindMenuItemsByName_NullInput_Bug() {
+        System.out.println("TEST: test06_FindMenuItemsByName_NullInput_Bug");
 
         try {
             menu.findMenuItemsByName(null);

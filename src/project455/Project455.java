@@ -31,16 +31,26 @@ public class Project455 {
 
         do {
             option();
-            selectedOption = input.nextInt();
+            // Use try-catch to handle potential scanner errors gracefully during tests
+            try {
+                if (input.hasNextInt()) {
+                    selectedOption = input.nextInt();
+                } else {
+                    // Break loop if input stream ends (safety for tests)
+                    break;
+                }
+            } catch (Exception e) {
+                break;
+            }
 
             if (selectedOption == 1) {
                 menu.DisplayMenu();
             } else if (selectedOption == 2) {
                 order.makeOrder(input, menu, order);
             } else if (selectedOption == 3) {
-                reservation.makeTableReservation(reservations);
+                // UPDATED: Passing the 'input' scanner here!
+                reservation.makeTableReservation(input, reservations);
             } else if (selectedOption == 4) {
-                // Check if user wants to apply a discount
                 System.out.print("Do you have a discount coupon? (yes/no): ");
                 String hasCoupon = input.next();
                 

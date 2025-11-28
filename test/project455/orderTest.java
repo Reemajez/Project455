@@ -5,6 +5,11 @@ import java.util.Scanner;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.io.ByteArrayInputStream;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
 
 public class orderTest {
 
@@ -13,9 +18,9 @@ public class orderTest {
     // =====================================================
 
     @Test
-    public void testMakeOrder_AddItemSuccessfully() {
+    public void test01_MakeOrder_AddItemSuccessfully() {
 
-        System.out.println("TEST: testMakeOrder_AddItemSuccessfully");
+        System.out.println("TEST 1: testMakeOrder_AddItemSuccessfully");
 
         Menu menu = new Menu();
         menu.addMainCourse("Burger", "Beef burger", 12.0);
@@ -44,8 +49,8 @@ public class orderTest {
     // ============  Test Cases that MUST FAIL (Bugs)  =====
     // =====================================================
     @Test
-    public void testMakeOrder_InvalidItem_Crash_Bug() {
-        System.out.println("TEST: testMakeOrder_InvalidItem_Crash_Bug");
+    public void test02_MakeOrder_InvalidItem_Crash_Bug() {
+        System.out.println("TEST 2: testMakeOrder_InvalidItem_Crash_Bug");
 
         Menu menu = new Menu(); 
         order orderObj = new order();
@@ -66,20 +71,16 @@ public class orderTest {
         System.out.println("Result: FAIL/CRASH — System failed to handle invalid item input gracefully.\n");
     }
     
-    
-    
-    
-
-
+   
 
     // =====================================================
     // =========  Test calculateTotalPrice  ================
     // =====================================================
 
     @Test
-    public void testCalculateTotalPrice_MultipleItems() {
+    public void test03_CalculateTotalPrice_MultipleItems() {
 
-        System.out.println("TEST: testCalculateTotalPrice_MultipleItems");
+        System.out.println("\nTEST 3: testCalculateTotalPrice_MultipleItems");
 
         order orderObj = new order();
 
@@ -97,9 +98,9 @@ public class orderTest {
     }
 
     @Test
-    public void testCalculateTotalPrice_EmptyOrder() {
+    public void test04_CalculateTotalPrice_EmptyOrder() {
 
-        System.out.println("TEST: testCalculateTotalPrice_EmptyOrder");
+        System.out.println("TEST 4: testCalculateTotalPrice_EmptyOrder");
 
         order orderObj = new order();
 
@@ -113,8 +114,8 @@ public class orderTest {
     }
     
     @Test
-    public void testCalculateTotalPrice_NegativePrice_Bug() {
-        System.out.println("TEST: testCalculateTotalPrice_NegativePrice_Bug");
+    public void test05_CalculateTotalPrice_NegativePrice_Bug() {
+        System.out.println("TEST 5: testCalculateTotalPrice_NegativePrice_Bug");
 
         order orderObj = new order();
         orderObj.addItem(new MenuItem("Refund", "Mistake Refund", -50.0));
@@ -128,8 +129,8 @@ public class orderTest {
     }
 
     @Test
-    public void testCalculateTotalPrice_NaN_Bug() {
-        System.out.println("TEST: testCalculateTotalPrice_NaN_Bug");
+    public void test06_CalculateTotalPrice_NaN_Bug() {
+        System.out.println("TEST 6: testCalculateTotalPrice_NaN_Bug");
 
         order orderObj = new order();
         orderObj.addItem(new MenuItem("CorruptItem", "Corrupt Price", Double.NaN));
@@ -148,8 +149,8 @@ public class orderTest {
     // =====================================================
 
     @Test
-    public void testApplyDiscount_NormalValid() {
-        System.out.println("TEST: testApplyDiscount_NormalValid");
+    public void test07_ApplyDiscount_NormalValid() {
+        System.out.println("TEST 7: testApplyDiscount_NormalValid");
         
         order orderObj = new order();
         double input = 10.0;
@@ -162,8 +163,8 @@ public class orderTest {
     }
 
     @Test
-    public void testApplyDiscount_LowerBoundary() {
-        System.out.println("TEST: testApplyDiscount_LowerBoundary");
+    public void test08_ApplyDiscount_LowerBoundary() {
+        System.out.println("TEST 8: testApplyDiscount_LowerBoundary");
         
         order orderObj = new order();
         double input = 0.0;
@@ -176,8 +177,8 @@ public class orderTest {
     }
 
     @Test
-    public void testApplyDiscount_UpperBoundary() {
-        System.out.println("TEST: testApplyDiscount_UpperBoundary");
+    public void test09_ApplyDiscount_UpperBoundary() {
+        System.out.println("TEST 9: testApplyDiscount_UpperBoundary");
         
         order orderObj = new order();
         double input = 100.0;
@@ -190,8 +191,8 @@ public class orderTest {
     }
 
     @Test
-    public void testApplyDiscount_InvalidNegative() {
-        System.out.println("TEST: testApplyDiscount_InvalidNegative");
+    public void test10_ApplyDiscount_InvalidNegative() {
+        System.out.println("TEST 10: testApplyDiscount_InvalidNegative");
         
         order orderObj = new order();
         double input = -5.0;
@@ -204,8 +205,8 @@ public class orderTest {
     }
 
     @Test
-    public void testApplyDiscount_InvalidHigh() {
-        System.out.println("TEST: testApplyDiscount_InvalidHigh");
+    public void test11_ApplyDiscount_InvalidHigh() {
+        System.out.println("TEST 11: testApplyDiscount_InvalidHigh");
         
         order orderObj = new order();
         double input = 110.0;
@@ -218,8 +219,8 @@ public class orderTest {
     }
 
     @Test
-    public void testApplyDiscount_Overwrite() {
-        System.out.println("TEST: testApplyDiscount_Overwrite");
+    public void test12_ApplyDiscount_Overwrite() {
+        System.out.println("TEST 12: testApplyDiscount_Overwrite");
         
         order orderObj = new order();
         // First apply 10%
@@ -234,8 +235,8 @@ public class orderTest {
     }
 
     @Test
-    public void testApplyDiscount_PrecisionBoundary() {
-         System.out.println("TEST: testApplyDiscount_PrecisionBoundary");
+    public void test13_ApplyDiscount_PrecisionBoundary() {
+         System.out.println("TEST 13: testApplyDiscount_PrecisionBoundary");
          order orderObj = new order();
          
          // Just inside upper boundary (99.99%)
@@ -253,8 +254,8 @@ public class orderTest {
     // =====================================================
 
     @Test
-    public void testDiscount_NormalValid() {
-        System.out.println("TEST: testDiscount_NormalValid");
+    public void test14_Discount_NormalValid() {
+        System.out.println("TEST 14: testDiscount_NormalValid");
         
         order orderObj = new order();
         orderObj.addItem(new MenuItem("Steak", "Premium", 100.0));
@@ -267,8 +268,8 @@ public class orderTest {
     }
 
     @Test
-    public void testDiscount_BoundaryZero() {
-        System.out.println("TEST: testDiscount_BoundaryZero");
+    public void test15_Discount_BoundaryZero() {
+        System.out.println("TEST 15: testDiscount_BoundaryZero");
         
         order orderObj = new order();
         orderObj.addItem(new MenuItem("Steak", "Premium", 50.0));
@@ -281,8 +282,8 @@ public class orderTest {
     }
 
     @Test
-    public void testDiscount_BoundaryHundred() {
-        System.out.println("TEST: testDiscount_BoundaryHundred");
+    public void test16_Discount_BoundaryHundred() {
+        System.out.println("TEST 16: testDiscount_BoundaryHundred");
         
         order orderObj = new order();
         orderObj.addItem(new MenuItem("Steak", "Premium", 50.0));
@@ -295,8 +296,8 @@ public class orderTest {
     }
 
     @Test
-    public void testDiscount_InvalidNegative() {
-        System.out.println("TEST: testDiscount_InvalidNegative");
+    public void test17_Discount_InvalidNegative() {
+        System.out.println("TEST 17: testDiscount_InvalidNegative");
         
         order orderObj = new order();
         orderObj.addItem(new MenuItem("Steak", "Premium", 50.0));
@@ -309,8 +310,8 @@ public class orderTest {
     }
 
     @Test
-    public void testDiscount_InvalidHigh() {
-        System.out.println("TEST: testDiscount_InvalidHigh");
+    public void test18_Discount_InvalidHigh() {
+        System.out.println("TEST 18: testDiscount_InvalidHigh");
         
         order orderObj = new order();
         orderObj.addItem(new MenuItem("Steak", "Premium", 50.0));

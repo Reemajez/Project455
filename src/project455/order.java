@@ -64,12 +64,6 @@ public class order {
         return totalPrice;
     }
 
-    // --- New Functions Below ---
-
-    /**
-     * Stores the discount percentage to be applied later during payment.
-     * @param percentage The percentage to deduct (e.g., 10 for 10%).
-     */
     public void applyDiscount(double percentage) {
         if (percentage >= 0 && percentage <= 100) {
             this.discountPercentage = percentage;
@@ -79,17 +73,10 @@ public class order {
         }
     }
 
-    /**
-     * Getter for the payment class to see the discount.
-     */
     public double getDiscountPercentage() {
         return discountPercentage;
     }
 
-    /**
-     * Calculates the price with discount immediately (Utility function).
-     * This is the specific function "discount" requested.
-     */
     public double discount(double percentage) {
         double currentTotal = calculateTotalPrice();
         if (percentage < 0 || percentage > 100) {
