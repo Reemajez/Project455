@@ -40,6 +40,35 @@ public class orderTest {
 
         System.out.println("Result: PASS\n");
     }
+    // =====================================================
+    // ============  Test Cases that MUST FAIL (Bugs)  =====
+    // =====================================================
+    @Test
+    public void testMakeOrder_InvalidItem_Crash_Bug() {
+        System.out.println("TEST: testMakeOrder_InvalidItem_Crash_Bug");
+
+        Menu menu = new Menu(); 
+        order orderObj = new order();
+
+        String fakeInput = "InvalidItem\nyes\n"; 
+        Scanner sc = new Scanner(new ByteArrayInputStream(fakeInput.getBytes()));
+
+        try {
+            order.makeOrder(sc, menu, orderObj);
+            
+            fail("Bug: System did not crash as expected, but the order list is likely empty, indicating a flaw in logic."); 
+        } catch (IllegalArgumentException e) {
+            fail("FAIL: Bug Confirmed: System crashed (IllegalArgumentException) instead of handling invalid item gracefully and continuing loop!");
+        } catch (Exception e) {
+            fail("FAIL: Bug Confirmed: System crashed with unexpected exception: " + e.getClass().getName());
+        }
+        
+        System.out.println("Result: FAIL/CRASH — System failed to handle invalid item input gracefully.\n");
+    }
+    
+    
+    
+    
 
 
 
@@ -82,6 +111,37 @@ public class orderTest {
 
         System.out.println("Result: PASS\n");
     }
+    
+    @Test
+    public void testCalculateTotalPrice_NegativePrice_Bug() {
+        System.out.println("TEST: testCalculateTotalPrice_NegativePrice_Bug");
+
+        order orderObj = new order();
+        orderObj.addItem(new MenuItem("Refund", "Mistake Refund", -50.0));
+        orderObj.addItem(new MenuItem("RegularItem", "Valid", 20.0));
+
+        double total = orderObj.calculateTotalPrice();
+        
+        assertTrue("FAIL: Bug Confirmed: Total price is negative, meaning system allows negative-priced items!", total >= 0.0);
+
+        System.out.println("Result: FAIL, system allowed calculation with negative price: " + total + "\n");
+    }
+
+    @Test
+    public void testCalculateTotalPrice_NaN_Bug() {
+        System.out.println("TEST: testCalculateTotalPrice_NaN_Bug");
+
+        order orderObj = new order();
+        orderObj.addItem(new MenuItem("CorruptItem", "Corrupt Price", Double.NaN));
+        orderObj.addItem(new MenuItem("RegularItem", "Valid", 10.0));
+
+        double total = orderObj.calculateTotalPrice();
+        
+        assertFalse("FAIL: Bug Confirmed: Total price resulted in NaN!", Double.isNaN(total));
+
+        System.out.println("Result: FAIL — Total price is NaN: " + total + "\n");
+    }
+    
     
     // =====================================================
     // ============  Test applyDiscount  ===================

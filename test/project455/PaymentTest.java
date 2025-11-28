@@ -105,4 +105,52 @@ public class PaymentTest {
         assertEquals(expectedResult, actualResult, 0.01);
     }
     
+    @Test
+    public void testMakePaymentInsufficient() {
+        System.out.println("Testing makePayment with insufficient funds...");
+        
+        order myOrder = new order();
+        myOrder.addItem(new MenuItem("Burger", "Desc", 10.0)); 
+        // Total should be 11.0 (10 + 1 tax)
+        
+        double paymentAmount = 5.0; // دفعنا 5 فقط
+        
+        double result = Payment.makePayment(myOrder, paymentAmount);
+        
+        // التحقق من أن النتيجة هي NaN (Not a Number)
+        assertTrue("Should return NaN for insufficient payment", Double.isNaN(result));
+    }
+
+ 
+    @Test
+    public void testCalculateSubtotalWithDiscount() {
+        System.out.println("Testing calculateSubtotal with Discount...");
+        
+        order myOrder = new order();
+        myOrder.addItem(new MenuItem("Steak", "Desc", 100.0));
+        
+        // تطبيق خصم 20%
+        // (يجب أن يكون الخصم 20 دولار، والمجموع الجديد 80 دولار)
+        myOrder.applyDiscount(20.0);
+        
+        double expectedResult = 80.0;
+        double actualResult = Payment.calculateSubtotal(myOrder);
+        
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
+
+   
+    @Test
+    public void testCalculateSubtotalEmptyOrder() {
+        System.out.println("Testing calculateSubtotal with empty order...");
+        
+        order myOrder = new order();
+        // لم نضف أي عنصر
+        
+        double expectedResult = 0.0;
+        double actualResult = Payment.calculateSubtotal(myOrder);
+        
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
+    
 }

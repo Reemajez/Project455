@@ -56,39 +56,48 @@ public class MenuTest {
         System.out.println("Result: PASS\n");
     }
 
+   
+    
     @Test
     public void testFindMenuItemsByName_EmptyString_ShouldFail() {
         System.out.println("TEST: testFindMenuItemsByName_EmptyString_ShouldFail");
 
         try {
             MenuItem result = menu.findMenuItemsByName("");
-            assertNull("Expected null for empty input — Bug detected!", result);
-            System.out.println("Result: FAIL — System should handle empty input\n");
+            assertNull("Expected null for empty input, bug detected!", result);
+            System.out.println("Result: FAIL, System should handle empty input\n");
         } catch (Exception e) {
             System.out.println("Exception thrown (Correct): " + e);
         }
     }
 
+    // =====================================================
+    // ============  Test Cases that MUST FAIL (Bugs)  =====
+    // =====================================================
     @Test
-    public void testFindMenuItemsByName_NullInput_ShouldFail() {
-        System.out.println("TEST: testFindMenuItemsByName_NullInput_ShouldFail");
+    public void testFindMenuItemsByName_Whitespace_Bug() {
+        System.out.println("TEST: testFindMenuItemsByName_Whitespace_Bug");
 
-        try {
-            menu.findMenuItemsByName(null);
-            fail("Bug: System does not handle null input!");
-        } catch (Exception e) {
-            System.out.println("Correct — Exception thrown for null input: " + e + "\n");
-        }
+        MenuItem result = menu.findMenuItemsByName("Burger ");
+
+        assertNotNull("FAIL: Bug Confirmed: System failed to find item due to trailing whitespace!", result);
+
+        System.out.println("Result: FAIL, System is sensitive to whitespace in item query\n");
     }
 
     @Test
-    public void testFindMenuItemsByName_Whitespace_ShouldFail() {
-        System.out.println("TEST: testFindMenuItemsByName_Whitespace_ShouldFail");
+    public void testFindMenuItemsByName_NullInput_Bug() {
+        System.out.println("TEST: testFindMenuItemsByName_NullInput_Bug");
 
-        MenuItem result = menu.findMenuItemsByName("   ");
-        assertNull("Bug: System should not accept whitespace as valid name!", result);
+        try {
+            menu.findMenuItemsByName(null);
 
-        System.out.println("Result: FAIL — System accepts whitespace input\n");
+            fail("FAIL: Bug Confirmed: System crashed with NullPointerException for null input! Expected safe handling/return null.");
+        } catch (NullPointerException e) {
+            fail("FAIL: Bug Confirmed: System crashed with NullPointerException for null input! Expected safe handling/return null.");
+        } catch (Exception e) {
+            System.out.println("Exception thrown (Expected Bug): " + e.getClass().getName() + "\n");
+        }
     }
 
 }
